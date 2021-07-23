@@ -57,7 +57,7 @@ function PizzaForm (props) {
                     <option value='olive-oil'>Olive Oil</option>
                 </select>
             </label>
-            <Link to={`${match.url}/toppings`}>Next</Link>
+            <Link to={`${match.url}/toppings`}><button id='next1'>Next</button></Link>
             </Route>
             <Route path={`${match.url}/toppings`}>
             <div className='toppings'>
@@ -68,8 +68,8 @@ function PizzaForm (props) {
                     </label>
                 )})}
             </div>
-            <Link to={`${match.url}`}>Back</Link>
-            <Link to={`${match.url}/special`}>Next</Link>
+            <Link to={`${match.url}`}><button id='back1'>Back</button></Link>
+            <Link to={`${match.url}/special`}><button id='next2'>Next</button></Link>
             </Route>
             <Route path={`${match.url}/special`}>
             <label htmlFor='special-text'>Special Instructions
@@ -77,7 +77,7 @@ function PizzaForm (props) {
             </label>
             <button type='submit' id='order-button' disabled={disabled}>Add to Order</button>
             <button type='cancel' id='cancel-button' onClick={cancelForm}>Cancel Order</button>
-            <Link to={`${match.url}/toppings`}>Back</Link>
+            <Link to={`${match.url}/toppings`}><button id='back2'>Back</button></Link>
             </Route>
             </Switch>
             <div className='errors'>
