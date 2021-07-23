@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Route, Switch, Link } from 'react-router-dom';
 import PizzaForm from './components/PizzaForm';
-import Orders from './components/Orders'
 import axios from 'axios'
 
 const initialFormValues = {
   name: '',
   size: '',
-  crust: '',
+  crust: 'original',
   sauce: '',
   pepperoni: false,
   sausage: false,
@@ -22,9 +21,21 @@ const initialFormValues = {
   special: ''
 }
 
+const toppings = [
+  'pepperoni',
+  'sausage',
+  'bacon',
+  'chicken',
+  'onions',
+  'olives',
+  'mushrooms',
+  'bellPeppers',
+  'jalapenos',
+  'tomatoes'
+]
+
 const App = () => {
   const [formValues, setFormValues] = useState(initialFormValues)
-  cosnt [orders, setOrders] = useState([])
 
   function changeForm (name, value){
     setFormValues({...formValues, [name]: value})
@@ -53,8 +64,7 @@ const App = () => {
           </Link>
         </Route>
         <Route path='/pizza'>
-          <PizzaForm values={formValues} submit={submitForm} change={changeForm} cancel={cancelForm} />
-          <Orders orders={orders} />
+          <PizzaForm values={formValues} submit={submitForm} change={changeForm} cancel={cancelForm} toppings={toppings} />
         </Route>
       </Switch>
     </div>
