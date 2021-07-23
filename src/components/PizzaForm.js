@@ -1,7 +1,7 @@
 import React from 'react'
 
 function PizzaForm (props) {
-    const { values, submit, cancel, change, toppings } = props;
+    const { values, submit, cancel, change, toppings, disabled, errors } = props;
 
     function changeForm (e) {
         const { name, value, type, checked } = e.target;
@@ -21,8 +21,8 @@ function PizzaForm (props) {
 
     return (
         <form id='pizza-form' onSubmit={submitForm}>
-            <label htmlFor='name'> Name
-                <input type='text' name='name' id='name' onChange={changeForm} value={values.name} />
+            <label htmlFor='name-input'> Name
+                <input type='text' name='name' id='name-input' onChange={changeForm} value={values.name} />
             </label>
             <label htmlFor='size'> Size
                 <select name='size' id='size' onChange={changeForm} value={values.size}>
@@ -49,7 +49,7 @@ function PizzaForm (props) {
                     <option value=''>--Select a sauce--</option>
                     <option value='original'>Original</option>
                     <option value='garlic-alfredo'>Garlic Alfredo</option>
-                    <option value='blackened-rance'>Blackened Ranch</option>
+                    <option value='blackened-ranch'>Blackened Ranch</option>
                     <option value='olive-oil'>Olive Oil</option>
                 </select>
             </label>
@@ -61,11 +61,16 @@ function PizzaForm (props) {
                     </label>
                 )})}
             </div>
-            <label htmlFor='special'>
+            <label htmlFor='special'>Special Instructions
                 <input type='text' name='special' id='special' value={values.special} onChange={changeForm} />
             </label>
-            <button type='submit'>Submit</button>
-            <button type='cancel' onClick={cancelForm}>Cancel</button>
+            <button type='submit' id='order-button' disabled={disabled}>Add to Order</button>
+            <button type='cancel' onClick={cancelForm}>Cancel Order</button>
+            <div className='errors'>
+                {errors.name}
+                {errors.size}
+                {errors.sauce}
+            </div>
         </form>
     )
 }
