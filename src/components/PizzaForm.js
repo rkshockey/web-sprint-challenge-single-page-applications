@@ -1,7 +1,9 @@
 import React from 'react'
+import { Switch, Route, Link, useRouteMatch } from 'react-router-dom'
 
 function PizzaForm (props) {
     const { values, submit, cancel, change, toppings, disabled, errors } = props;
+    const match = useRouteMatch()
 
     function changeForm (e) {
         const { name, value, type, checked } = e.target;
@@ -21,6 +23,8 @@ function PizzaForm (props) {
 
     return (
         <form id='pizza-form' onSubmit={submitForm}>
+            <Switch>
+            <Route exact path={match.url}>
             <label htmlFor='name-input'> Name
                 <input type='text' name='name' id='name-input' onChange={changeForm} value={values.name} />
             </label>
@@ -53,6 +57,9 @@ function PizzaForm (props) {
                     <option value='olive-oil'>Olive Oil</option>
                 </select>
             </label>
+            <Link to={`${match.url}/toppings`}>Next</Link>
+            </Route>
+            <Route path={`${match.url}/toppings`}>
             <div className='toppings'>
                 <h3>Toppings</h3>
                 {toppings.map(top => { return (
@@ -61,11 +68,18 @@ function PizzaForm (props) {
                     </label>
                 )})}
             </div>
+            <Link to={`${match.url}`}>Back</Link>
+            <Link to={`${match.url}/special`}>Next</Link>
+            </Route>
+            <Route path={`${match.url}/special`}>
             <label htmlFor='special-text'>Special Instructions
                 <input type='text' name='special' id='special-text' value={values.special} onChange={changeForm} />
             </label>
             <button type='submit' id='order-button' disabled={disabled}>Add to Order</button>
             <button type='cancel' id='cancel-button' onClick={cancelForm}>Cancel Order</button>
+            <Link to={`${match.url}/toppings`}>Back</Link>
+            </Route>
+            </Switch>
             <div className='errors'>
                 {errors.name}
                 {errors.size}
