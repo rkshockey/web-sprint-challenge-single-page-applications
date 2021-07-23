@@ -24,8 +24,8 @@ function PizzaForm (props) {
             <label htmlFor='name-input'> Name
                 <input type='text' name='name' id='name-input' onChange={changeForm} value={values.name} />
             </label>
-            <label htmlFor='size'> Size
-                <select name='size' id='size' onChange={changeForm} value={values.size}>
+            <label htmlFor='size-dropdown'> Size
+                <select name='size' id='size-dropdown' onChange={changeForm} value={values.size}>
                     <option value=''>--Select a size--</option>
                     <option value='S'>Personal</option>
                     <option value='M'>Medium</option>
@@ -61,11 +61,11 @@ function PizzaForm (props) {
                     </label>
                 )})}
             </div>
-            <label htmlFor='special'>Special Instructions
-                <input type='text' name='special' id='special' value={values.special} onChange={changeForm} />
+            <label htmlFor='special-text'>Special Instructions
+                <input type='text' name='special' id='special-text' value={values.special} onChange={changeForm} />
             </label>
             <button type='submit' id='order-button' disabled={disabled}>Add to Order</button>
-            <button type='cancel' onClick={cancelForm}>Cancel Order</button>
+            <button type='cancel' id='cancel-button' onClick={cancelForm}>Cancel Order</button>
             <div className='errors'>
                 {errors.name}
                 {errors.size}
