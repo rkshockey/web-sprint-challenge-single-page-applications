@@ -1,8 +1,47 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Switch, Link } from 'react-router-dom';
 import PizzaForm from './components/PizzaForm';
+import Orders from './components/Orders'
+import axios from 'axios'
+
+const initialFormValues = {
+  name: '',
+  size: '',
+  crust: '',
+  sauce: '',
+  pepperoni: false,
+  sausage: false,
+  bacon: false,
+  chicken: false,
+  onions: false,
+  olives: false,
+  mushrooms: false,
+  bellPeppers: false,
+  jalapenos: false,
+  tomatoes: false,
+  special: ''
+}
 
 const App = () => {
+  const [formValues, setFormValues] = useState(initialFormValues)
+  cosnt [orders, setOrders] = useState([])
+
+  function changeForm (name, value){
+    setFormValues({...formValues, [name]: value})
+  }
+
+  function submitForm (){
+    const newOrder = formValues;
+    axios.post('https://reqres.in/api/orders', newOrder)
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
+    setFormValues(initialFormValues)
+  }
+
+  function cancelForm (){
+    setFormValues(initialFormValues)
+  }
+
   return (
     <div className='page'>
       <Switch>
@@ -14,7 +53,8 @@ const App = () => {
           </Link>
         </Route>
         <Route path='/pizza'>
-          <PizzaForm />
+          <PizzaForm values={formValues} submit={submitForm} change={changeForm} cancel={cancelForm} />
+          <Orders orders={orders} />
         </Route>
       </Switch>
     </div>
